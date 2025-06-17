@@ -39,11 +39,11 @@ class MortalitySDE(nn.Module):
     noise_type = "diagonal"
     sde_type = "ito"
 
-    def __init__(self, hidden_size: int = 32):
+    def __init__(self, hidden_size: int = 32, sigma_max: float = 1.0):
         super().__init__()
         input_dim = 2  # Zeit + Zustand
         self.drift = DriftNet(input_dim, hidden_size)
-        self.diffusion = DiffNet(input_dim, hidden_size)
+        self.diffusion = DiffNet(input_dim, hidden_size, sigma_max=sigma_max)
 
     def _concat(self, t: Tensor, y: Tensor) -> Tensor:
         if t.dim() == 0:

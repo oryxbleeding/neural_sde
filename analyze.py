@@ -25,7 +25,10 @@ def analyze():
         get_empirical_sample(cfg), dtype=torch.float32, device=device
     )
 
-    model = MortalitySDE(hidden_size=cfg["model"]["hidden_size"]).to(device)
+    model = MortalitySDE(
+        hidden_size=cfg["model"]["hidden_size"],
+        sigma_max=cfg["model"].get("sigma_max", 1.0),
+    ).to(device)
     model.load_state_dict(torch.load(Path(cfg["training"]["checkpoints"]) / "model_final.pt", map_location=device))
     model.eval()
 
