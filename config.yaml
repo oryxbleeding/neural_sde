@@ -1,0 +1,30 @@
+# ----------------------------------
+# Projekt‑Konfiguration  (v2)
+# ----------------------------------
+# Hinweise:
+#   dt  = 0.25 ⇒ Quartals‑Zeitschritt
+#   mmd_kernel_bw wird sowohl im Training als auch in der Analyse benutzt.
+# ----------------------------------
+
+data:
+  life_table_csv: "data/GER_life_table_2020.csv"
+  n_empirical:    100000
+
+model:
+  dt:             0.25        # <‑ feiner Zeitschritt (Quartal)
+  t_max:          110.0
+  hidden_size:    32
+  sigma_max:      3.0         # Obergrenze für Diffusion
+  fourier_features: 8         # Time‑Embedding‑Dimension
+
+training:
+  batch_size:     1024
+  epochs:         20000
+  lr:             1.0e-3
+  mmd_kernel_bw:  5.0
+  checkpoints:    "checkpoints/"
+  device:         "cuda"
+  seed:           2025        # fixe Seeds für Repro
+
+analysis:
+  n_simulated: 10000
